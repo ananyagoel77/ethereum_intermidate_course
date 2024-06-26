@@ -10,15 +10,12 @@ To run this program, I utilize Remix, an online Solidity IDE. To begin, visit th
 Next, I generate a new file by selecting the "+" symbol in the sidebar on the left. Remember to save the file with a .sol extension.
 
 **Code**
-
+```
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.26;
 
 contract RequireAssertRevert {
-   
     address private owner;
-    
     mapping(address => uint) private balances;
 
     constructor() {
@@ -28,7 +25,6 @@ contract RequireAssertRevert {
     function deposit(uint _amount) public {
         // Require that the sender is the owner
         require(msg.sender == owner, "Only the owner can deposit funds");
-
         // Increase the balance
         balances[msg.sender] += _amount;
     }
@@ -36,7 +32,6 @@ contract RequireAssertRevert {
     function withdraw(uint _amount) public {
         // Assert that the balance is sufficient
         assert(balances[msg.sender] >= _amount);
-
         // Decrease the balance
         balances[msg.sender] -= _amount;
     }
@@ -46,13 +41,10 @@ contract RequireAssertRevert {
         if (_recipient == address(0)) {
             revert("Cannot transfer to the zero address");
         }
-
         // Ensure sender has sufficient balance
         require(balances[msg.sender] >= _amount, "Insufficient balance");
-
         // Decrease the sender's balance
         balances[msg.sender] -= _amount;
-
         // Increase the recipient's balance
         balances[_recipient] += _amount;
     }
@@ -61,7 +53,7 @@ contract RequireAssertRevert {
         return balances[_account];
     }
 }
-
+```
 **Usage**
 
 To compile the code, go to the "Solidity Compiler" tab on the left-hand sidebar. Ensure that the "Compiler" option is set to "0.8.26" and then click on the "Compile project1.sol" button.
